@@ -1,4 +1,253 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback
+} from 'react-native';
+import { Container, Button, Footer, FooterTab } from 'native-base';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import {
+  lightPurp,
+  darkBlue,
+  blue,
+  skyBlue,
+  lavender,
+  green,
+  red,
+  white
+} from '../utils/colors';
+
+const NoCards = () => (
+  <View style={styles.noCards}>
+    <Text style={styles.noCardsText}>No question cards to display!</Text>
+  </View>
+);
+
+const ResultScreen = props => (
+  <View style={styles.resultCard}>
+    <Text style={styles.resultCardText}>
+      Total questions answered: {props.totalAnswered}
+    </Text>
+    <Text style={styles.resultCardText}>Correct Answers: {props.correct}</Text>
+
+    <View style={styles.btnView}>
+      <TouchableOpacity
+        style={[styles.btnStyle, { backgroundColor: darkBlue }]}
+        onPress={restart}
+      >
+        <Text style={{ color: white }}>Restart the Quiz</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.btnStyle, { backgroundColor: darkBlue }]}
+        onPress={props.goBack}
+      >
+        <Text style={{ color: white }}>Go Back</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+);
+
+const ShowQuestionOrAnswer = props => (
+  <TouchableWithoutFeedback onPress={props.toggle}>
+    <View>
+      {props.current == 'question' ? (
+        <Text style={{ fontStyle: 'italic' }}>Show the Answer</Text>
+      ) : (
+        <Text style={{ fontStyle: 'italic' }}>Show the Question</Text>
+      )}
+    </View>
+  </TouchableWithoutFeedback>
+);
+
+const Quiz = (props, { questions }) => {
+  const screens = {
+    QUESTION: 'question',
+    ANSWER: 'answer',
+    RESULT: 'result'
+  };
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [show, setShow] = useState('question');
+  const [showResults, setShowResults] = useState(false);
+
+  const showQuestionOrAnswer = () => {
+    const show = show === 'question' ? 'answer' : 'question';
+
+    setShow(show);
+  };
+
+  const showQuestionOnCardChange = () => {
+    if (show === 'answer') {
+      show = 'question';
+    }
+    return show;
+  };
+
+  const userAnswered = answer => {
+    let show = showQuestionOnCardChange();
+
+    if (answer === 'correct') {
+      setCorrectAnswers({ correctAnswers: correctAnswers + 1, show });
+    }
+
+    if (currentQuestion === props.questions.length - 1) {
+      setShowResults({ showResults: true, show });
+    } else {
+      setCurrentQuestion({ currentQuestion: currentQuestion + 1, show });
+    }
+  };
+
+  const restartQuiz = () => {
+    setCurrentQuestion(0),
+      setCorrectAnswers(0),
+      setShow('question'),
+      setShowResults(false);
+  };
+
+  const goBack = () => {
+    props.navigation.dispatch(NavigationActions.back());
+  };
+
+  if (props.questions.length === 0) {
+    return <NoCards />;
+  }
+
+  if (showResults) {
+    return (
+      <ResultScreen
+        totalAnswered={props.questions.length}
+        correct={correctAnswers}
+        restart={restartQuiz}
+        goBack={goBack}
+      />
+    );
+  }
+
+  const showingCard = props.questions[currentQuestion];
+
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={styles.quizProgress}>
+        <Text>
+          Card {currentQuestion + 1}/{props.questions.length}
+        </Text>
+      </View>
+
+      <View style={styles.quizCard}>
+        {show == 'question' ? (
+          <Text style={styles.questionText}>{showingCard.question}</Text>
+        ) : (
+          <Text style={styles.answerText}>{showingCard.answer}</Text>
+        )}
+
+        <ShowQuestionOrAnswer toggle={showQuestionOrAnswer} current={show} />
+        <View style={styles.btnView}>
+          <Button
+            style={[styles.btnStyle, { backgroundColor: green }]}
+            onPress={() => userAnswered('correct')}
+          >
+            <Text>Correct</Text>
+          </Button>
+
+          <Button
+            style={[styles.btnStyle, { backgroundColor: red }]}
+            onPress={() => userAnswered('incorrect')}
+          >
+            <Text>Incorrect</Text>
+          </Button>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  noCards: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  noCardsText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  resultCardText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  quizProgress: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    padding: 8,
+    backgroundColor: lightPurp
+  },
+  quizCard: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    margin: 25,
+    padding: 25,
+    backgroundColor: lavender,
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: 'black',
+    shadowRadius: 6,
+    shadowOpacity: 1,
+    elevation: 3
+  },
+  resultCard: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    margin: 25,
+    padding: 25,
+    backgroundColor: skyBlue,
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: 'black',
+    shadowRadius: 6,
+    shadowOpacity: 1,
+    elevation: 3
+  },
+  questionText: {
+    fontSize: 22,
+    marginBottom: 5,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  answerText: {
+    fontSize: 26,
+    marginBottom: 5,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: blue
+  },
+  btnStyle: {
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  btnView: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  }
+});
+
+function mapStateToProps(state, { navigation }) {
+  return { questions: navigation.state.params.deck.questions };
+}
+
+export default connect(mapStateToProps)(Quiz);
+
+/*import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -107,8 +356,8 @@ class Quiz extends Component {
       showResults: false
     });
 
-    /* clearLocalNotification()
-            .then(setLocalNotification) */
+    clearLocalNotification()
+            .then(setLocalNotification) 
   };
 
   goBack = () => {
@@ -254,3 +503,4 @@ function mapStateToProps(state, { navigation }) {
 }
 
 export default connect(mapStateToProps)(Quiz);
+*/

@@ -43,7 +43,7 @@ const AddDeck = props => {
           { fontSize: 25, marginBottom: 10, marginTop: 20 }
         ]}
       >
-        What is the title of your new Deck?
+        What is the title of the new Deck?
       </Text>
       <TextInput
         style={[styles.spacing, styles.inputStyle]}
@@ -55,7 +55,7 @@ const AddDeck = props => {
       <TouchableOpacity
         onPress={createDeck}
         style={
-          Platform.OS === 'ios'
+          Platform.OS === 'android'
             ? [styles.iosSubmitBtn, { backgroundColor: purple }]
             : [styles.androidSubmitBtn, { backgroundColor: purple }]
         }
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     borderColor: purple,
-    borderWidth: 0.5
+    borderWidth: 5
   }
 });
 

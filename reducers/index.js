@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from '../actions';
+import { RECEIVE_DECKS, ADD_DECK, ADD_CARD, REMOVE_DECK } from '../actions';
 
 function decks(state = {}, action) {
   switch (action.type) {
@@ -11,6 +11,12 @@ function decks(state = {}, action) {
       return {
         ...state,
         ...action.deck
+      };
+    case REMOVE_DECK:
+      const { id } = action;
+      const { [id]: value, ...rest } = state;
+      return {
+        ...rest
       };
     case ADD_CARD:
       return {

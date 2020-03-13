@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Text,
   StyleSheet,
   KeyboardAvoidingView,
   View,
@@ -12,7 +13,6 @@ import {
   Footer,
   FooterTab,
   Button,
-  Text,
   Form,
   Item,
   Input
@@ -96,20 +96,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: white
+    backgroundColor: 'lightblue'
   },
   center: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30
+    marginLeft: 40,
+    marginRight: 40
   },
   cardTitle: {
-    padding: 2,
+    padding: 5,
     margin: 10,
     alignItems: 'stretch',
-    backgroundColor: lightPurp
+    backgroundColor: 'salmon'
   },
   iosSubmitBtn: {
     padding: 10,
@@ -145,8 +145,9 @@ const styles = StyleSheet.create({
   inputStyle: {
     fontSize: 25,
     textAlign: 'center',
-    borderColor: purple,
-    borderWidth: 1
+    borderColor: 'salmon',
+    borderWidth: 1,
+    height: 60
   }
 });
 

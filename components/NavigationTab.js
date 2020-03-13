@@ -1,11 +1,14 @@
 import React from 'react';
-import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { createAppContainer } from 'react-navigation';
+import {
+  createMaterialTopTabNavigator,
+  createBottomTabNavigator
+} from 'react-navigation-tabs';
 import DeckList from './DeckList';
 import AddDeck from './AddDeck';
 import { Platform } from 'react-native';
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
-import { purple, white } from '../utils/colors';
+import { MaterialIcons } from '@expo/vector-icons';
+import { salmon, white } from '../utils/colors';
 
 const router = {
   DeckList: {
@@ -14,9 +17,9 @@ const router = {
       tabBarLabel: 'Decks',
       tabBarIcon: ({ tintColor }) =>
         Platform.OS === 'android' ? (
-          <Entypo name="text-document" size={30} color={purple} />
+          <MaterialIcons name="collections" size={30} color={purple} />
         ) : (
-          <MaterialIcons name="format-list-bulleted" size={30} color={white} />
+          <MaterialIcons name="code" size={30} color={white} />
         )
     }
   },
@@ -26,9 +29,9 @@ const router = {
       tabBarLabel: 'Add Deck',
       tabBarIcon: ({ tintColor }) =>
         Platform.OS === 'android' ? (
-          <Entypo name="grid" size={30} color={purple} />
+          <MaterialIcons name="playlist-play" size={30} color={purple} />
         ) : (
-          <MaterialIcons name="playlist-add" size={30} color={white} />
+          <MaterialIcons name="playlist-add-check" size={30} color={white} />
         )
     }
   }
@@ -37,12 +40,12 @@ const router = {
 const navigationOptions = {
   tabBarOptions: {
     showIcon: true,
-    activeTintColor: Platform.OS === 'android' ? purple : white,
+    activeTintColor: Platform.OS === 'android' ? salmon : white,
     style: {
       padding: 10,
       height: Platform.OS === 'android' ? 60 : 'auto',
       //fontSize: 18,
-      backgroundColor: Platform.OS === 'android' ? white : purple,
+      backgroundColor: Platform.OS === 'android' ? white : salmon,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,

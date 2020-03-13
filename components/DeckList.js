@@ -19,18 +19,6 @@ const DeckList = props => {
         }));
       });
   }, [dispatch]);
-  /*
-  componentDidMount() {
-    const { dispatch } = this.props;
-    fetchDeckList()
-      .then(decks => dispatch(receiveDecks(decks)))
-      .then(() => {
-        this.setState(() => ({
-          ready: true
-        }));
-      });
-  }
-*/
 
   const { decks, navigation } = props;
 
@@ -40,6 +28,7 @@ const DeckList = props => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.center}>Welcome to the Flashcard Game</Text>
       {Object.values(decks).map(deck => {
         const { title, questions } = deck;
         return (
@@ -86,6 +75,13 @@ const styles = StyleSheet.create({
     backgroundColor: white
   },
   center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30
+  },
+  center2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

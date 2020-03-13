@@ -5,18 +5,18 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
-import TabNav from './components/TabNav';
+import TabNav from './components/NavigationTab';
 import DeckView from './components/DeckView';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
-import { white, purple } from './utils/colors';
+import { white, skyBlue, lightYellow, purple } from './utils/colors';
 
 const MainNavigator = createAppContainer(
   createStackNavigator({
     Home: {
       screen: TabNav,
       navigationOptions: {
-        header: null
+        headerShown: false
       }
     },
     DeckView: {
@@ -24,7 +24,7 @@ const MainNavigator = createAppContainer(
       navigationOptions: ({ navigation }) => ({
         headerTintColor: white,
         headerStyle: {
-          backgroundColor: purple
+          backgroundColor: skyBlue
         }
       })
     },
@@ -33,7 +33,7 @@ const MainNavigator = createAppContainer(
       navigationOptions: ({ navigation }) => ({
         headerTintColor: white,
         headerStyle: {
-          backgroundColor: purple
+          backgroundColor: skyBlue
         },
         title: navigation.state.params.deckId
       })
@@ -63,7 +63,7 @@ export default () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'salmon',
+    backgroundColor: lightYellow,
     alignItems: 'center',
     justifyContent: 'center'
   }

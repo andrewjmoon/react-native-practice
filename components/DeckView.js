@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native';
-import { connect } from 'react-redux';
-import { white, purple, gray, lightPurp } from '../utils/colors';
+import { connect, useSelector } from 'react-redux';
+import { white, purple, gray, salmon } from '../utils/colors';
 import TextButton from './TextButton';
 import { removeDeck } from '../utils/api';
 
 const DeckView = props => {
-  const deleteDeck = () => {
+  const handleDelete = () => {
     const { deckId } = props;
     removeDeck(deckId);
   };
@@ -27,13 +27,12 @@ const DeckView = props => {
           {deck.questions.length} cards
         </Text>
       </View>
-
       {/* Deck Actions */}
       <View>
         <TouchableOpacity
           onPress={() => props.navigation.navigate('AddCard', { deckId })}
           style={
-            Platform.OS === 'ios'
+            Platform.OS === 'android'
               ? [styles.iosSubmitBtn, { backgroundColor: purple }]
               : [styles.androidSubmitBtn, { backgroundColor: purple }]
           }
@@ -44,16 +43,18 @@ const DeckView = props => {
         <TouchableOpacity
           onPress={() => props.navigation.navigate('Quiz', { deck })}
           style={
-            Platform.OS === 'ios'
-              ? [styles.iosSubmitBtn, { backgroundColor: lightPurp }]
-              : [styles.androidSubmitBtn, { backgroundColor: lightPurp }]
+            Platform.OS === 'android'
+              ? [styles.iosSubmitBtn, { backgroundColor: salmon }]
+              : [styles.androidSubmitBtn, { backgroundColor: salmon }]
           }
         >
           <Text style={styles.btnText}>Start Quiz</Text>
         </TouchableOpacity>
-      </View>
-      <View style={{ marginTop: 30 }}>
-        <TextButton onPress={deleteDeck} style={{ margin: 20, fontSize: 15 }}>
+        <TextButton
+          style={{ marginTop: 30 }}
+          onPress={handleDelete}
+          style={{ margin: 20, fontSize: 15 }}
+        >
           Delete Deck
         </TextButton>
       </View>

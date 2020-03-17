@@ -7,14 +7,14 @@ import {
   Platform
 } from 'react-native';
 import { connect, useSelector } from 'react-redux';
-import { white, purple, gray, salmon } from '../utils/colors';
-import TextButton from './TextButton';
-import { removeDeck } from '../utils/api';
+import { white, purple, gray, salmon, lightYellow } from '../utils/colors';
+import TextButton from '../components/TextButton';
+import { deleteDeck } from '../utils/api';
 
-const DeckView = props => {
-  const handleDelete = () => {
-    const { deckId } = props;
-    removeDeck(deckId);
+const DeckView = (props, { navigation }, state) => {
+  const handleDelete = deckId => {
+    //const { deckId } = props;
+    deleteDeck(deckId);
   };
 
   const { deck, deckId } = props;
@@ -53,9 +53,13 @@ const DeckView = props => {
         <TextButton
           style={{ marginTop: 30 }}
           onPress={handleDelete}
-          style={{ margin: 20, fontSize: 15 }}
+          style={
+            Platform.OS === 'android'
+              ? [styles.iosSubmitBtn, { backgroundColor: gray }]
+              : [styles.androidSubmitBtn, { backgroundColor: gray }]
+          }
         >
-          Delete Deck
+          <Text style={styles.btnText}>Delete Deck</Text>
         </TextButton>
       </View>
     </View>
@@ -74,7 +78,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: white
+    backgroundColor: lightYellow
   },
   center: {
     flex: 1,

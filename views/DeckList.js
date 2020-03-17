@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AppLoading } from 'expo';
-import { white, gray, purple } from '../utils/colors';
+import { gray, purple, lightYellow, salmon } from '../utils/colors';
 import { fetchDeckList } from '../utils/api';
 import { receiveDecks } from '../actions';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 const DeckList = props => {
   const [ready, setReady] = useState(false);
@@ -72,19 +72,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: white
+    backgroundColor: lightYellow
   },
   center: {
-    flex: 1,
+    flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30
+    textAlign: 'center',
+    fontSize: 30,
+    marginTop: 30
   },
   center2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
     marginLeft: 30,
     marginRight: 30
   },
@@ -92,7 +94,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: purple,
-    margin: 10
+    margin: 10,
+    backgroundColor: salmon
   }
 });
 

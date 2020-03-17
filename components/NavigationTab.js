@@ -4,8 +4,8 @@ import {
   createMaterialTopTabNavigator,
   createBottomTabNavigator
 } from 'react-navigation-tabs';
-import DeckList from './DeckList';
-import AddDeck from './AddDeck';
+import DeckList from '../views/DeckList';
+import AddDeck from '../views/AddDeck';
 import { Platform } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { salmon, white } from '../utils/colors';
@@ -17,7 +17,7 @@ const router = {
       tabBarLabel: 'Decks',
       tabBarIcon: ({ tintColor }) =>
         Platform.OS === 'android' ? (
-          <MaterialIcons name="collections" size={30} color={purple} />
+          <MaterialIcons name="collections" size={30} color={salmon} />
         ) : (
           <MaterialIcons name="code" size={30} color={white} />
         )
@@ -29,7 +29,7 @@ const router = {
       tabBarLabel: 'Add Deck',
       tabBarIcon: ({ tintColor }) =>
         Platform.OS === 'android' ? (
-          <MaterialIcons name="playlist-play" size={30} color={purple} />
+          <MaterialIcons name="playlist-play" size={30} color={salmon} />
         ) : (
           <MaterialIcons name="playlist-add-check" size={30} color={white} />
         )

@@ -6,10 +6,10 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import TabNav from './components/NavigationTab';
-import DeckView from './components/DeckView';
-import AddCard from './components/AddCard';
-import Quiz from './components/Quiz';
-import { white, skyBlue, lightYellow, purple } from './utils/colors';
+import DeckView from './views/DeckView';
+import AddCard from './views/AddCard';
+import Quiz from './views/QuizView';
+import { white, skyBlue, lightYellow, green } from './utils/colors';
 
 const MainNavigator = createAppContainer(
   createStackNavigator({
@@ -43,7 +43,7 @@ const MainNavigator = createAppContainer(
       navigationOptions: ({ navigation }) => ({
         headerTintColor: white,
         headerStyle: {
-          backgroundColor: purple
+          backgroundColor: green
         }
       })
     }

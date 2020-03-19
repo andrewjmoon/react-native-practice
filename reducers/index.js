@@ -18,6 +18,18 @@ function decks(state = {}, action) {
       return {
         ...rest
       };
+    /*
+    case ADD_CARD:
+      const card = { question: action.question, answer: action.answer };
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          questions: state[action.id].questions.concat([card])
+        }
+      };
+      */
+
     case ADD_CARD:
       return {
         ...state,

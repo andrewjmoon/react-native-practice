@@ -50,6 +50,7 @@ const DeckView = (props, { navigation }, state) => {
         >
           <Text style={styles.btnText}>Start Quiz</Text>
         </TouchableOpacity>
+
         <TextButton
           style={{ marginTop: 30 }}
           onPress={handleDelete}

@@ -30,6 +30,6 @@ let initialDeckList = {
 };
 
 export function getInitData() {
-  AsyncStorage.setItem(DECKS_STORAGE_KEY, initialDeckList);
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialDeckList));
   return initialDeckList;
 }

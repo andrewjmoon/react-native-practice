@@ -4,7 +4,7 @@ import { AppLoading } from 'expo';
 import { gray, purple, lightYellow, salmon } from '../utils/colors';
 import { fetchDeckList } from '../utils/api';
 import { receiveDecks } from '../actions';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 const DeckList = props => {
   const [ready, setReady] = useState(false);
@@ -44,7 +44,7 @@ const DeckList = props => {
                     fontSize: 22,
                     textAlign: 'center',
                     marginBottom: 10,
-                    marginTop: 10
+                    marginTop: 35
                   }}
                 >
                   {title}

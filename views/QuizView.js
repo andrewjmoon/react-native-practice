@@ -10,6 +10,10 @@ import { Container, Button, Footer, FooterTab } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/notification';
+import {
   lightPurp,
   darkBlue,
   blue,
@@ -60,9 +64,9 @@ const ShowQuestionOrAnswer = props => (
   <TouchableWithoutFeedback onPress={props.toggle}>
     <View>
       {props.current == 'answer' ? (
-        <Text style={{ fontStyle: 'bold' }}>Click Here</Text>
+        <Text style={{ fontStyle: 'normal' }}>Click Here</Text>
       ) : (
-        <Text style={{ fontStyle: 'bold' }}>Click Here</Text>
+        <Text style={{ fontStyle: 'normal' }}>Click Here</Text>
       )}
     </View>
   </TouchableWithoutFeedback>
@@ -119,6 +123,7 @@ class Quiz extends Component {
       show: 'question',
       showResults: false
     });
+    clearLocalNotification().then(setLocalNotification);
   };
 
   goBack = () => {
@@ -226,7 +231,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
-    margin: 25,
+    margin: 10,
     padding: 25,
     backgroundColor: skyBlue,
     shadowOffset: { width: 10, height: 10 },

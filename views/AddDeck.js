@@ -26,13 +26,19 @@ const AddDeck = props => {
       })
     );
 
-    submitDeck(emptyDeck, deckTitle).then(
-      setdeckTitle(() => ({
-        deckTitle: ''
-      }))
-    );
+    submitDeck(emptyDeck, deckTitle)
+      .then(
+        setdeckTitle(() => ({
+          deckTitle: ''
+        }))
+      )
+      .then(resetDeck);
 
     props.navigation.navigate('DeckView', { deckId: deckTitle });
+  };
+
+  const resetDeck = () => {
+    setdeckTitle('');
   };
 
   return (
